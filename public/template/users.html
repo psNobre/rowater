@@ -1,0 +1,26 @@
+<h2>H2O+CO+CO</h2>
+
+<ul class="sortable-list connectList agile-list" id="rowater">
+    <li ng-class="contato.count > 0 ? 'danger-element' : (contato.count < 0 ? 'success-element' : '')" ng-repeat="contato in contatos | orderBy: 'position'" id="{{contato.name}}">
+        {{contato.name}} {{contato.count}} <i class="fa fa-flag"></i>
+
+        <a title="Deletar Participante" ng-click="deleteContato(contato)" href="#" class="pull-left btn btn-xs btn-default"><i class="fa fa-trash"></i></a>
+
+        <a title="Incrementar Rodada" ng-click="incrementCount(contato)" href="#" class="pull-right btn btn-xs btn-default"><i class="fa fa-plus"></i></a>
+        
+        <a title="Decrementar Rodada" ng-click="decrementCount(contato)" href="#" class="pull-right btn btn-xs btn-default"><i class="fa fa-minus"></i></a>
+
+
+    </li>                 
+</ul>
+
+<form name="contatoForm">
+    <input autocomplete="off" class="form-control" ng-model="contato.name" name="name" placeholder="Nome" ng-maxlength="20" ng-minlength="4" ng-required="true">
+</form>
+
+<!-- Mensagens de alerta -->
+<div class="alert alert-danger" ng-show="contatoForm.name.$error.required && contatoForm.name.$dirty">Preencha o campo Nome!</div>		
+<div class="alert alert-danger" ng-show="contatoForm.name.$error.maxlength">Campo Nome deve ter no maximo 20 caracteres!</div>
+<div class="alert alert-danger" ng-show="contatoForm.name.$error.minlength">Campo Nome deve ter no minimo 4 caracteres!</div>
+
+<button id="btn-add" class="btn btn-primary btn-block" ng-click="adicionaContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar</button>

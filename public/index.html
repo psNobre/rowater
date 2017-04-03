@@ -1,0 +1,59 @@
+<html ng-app="meuApp">
+    <head>
+        <meta charset="utf-8">
+        <title>H2O+CO+CO</title>
+
+        <link href="css/app.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+        <!--  Angular  -->
+        <script type="text/javascript" src="js/angular/angular.min.js"></script>
+        <script type="text/javascript" src="js/angular/ngMask.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-locale_pt-br.js"></script>
+        <script src="js/angular/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+        <!--  MVC  -->
+        <script type="text/javascript" src="js/controller.js"></script>
+        <script type="text/javascript" src="js/serviceUser.js"></script>
+        <script type="text/javascript" src="js/serviceLog.js"></script>
+        <script type="text/javascript" src="js/values.js"></script>
+
+        <!--  Jquery  -->
+        <script src="js/custom/jquery-2.1.1.js"></script>
+        <script src="js/custom/jquery-ui-1.10.4.min.js"></script> 
+        
+        <!--  ngTable  -->
+        <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+        <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+
+    </head>
+    <body ng-controller="appCtrl">
+
+        <div class="jumbotron">
+            
+            <nav class="nav-menu">	
+                <div class="menu" >
+
+                    <a title="Home" class="item" ui-sref="listUsers">
+                        <i class="image fa fa-list-ul"></i>
+                    </a>
+
+                    <a title="Lista de Logs" class="item" ui-sref="listLogs">
+                        <i class="image fa fa-book"></i>
+                    </a>
+
+                </div>
+            </nav>
+
+            <div ui-view></div>
+            
+        </div> 
+        
+    </body>
+
+</html>

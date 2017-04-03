@@ -1,0 +1,31 @@
+<h2>Logs</h2>
+
+<div class="menu-table form-inline">
+    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+        <input class="form-control" ng-model="criterioBusca" placeholder="Pesquisar..." >
+    </div>
+
+    <!-- Bloqueado -->
+    <button ng-show="false" ng-click="clearLog()" class="btn btn-primary">Clear Log</button>
+</div>
+
+<table ng-show="logs.length > 0" ng-table="tableParams"  class="table table-bordered table-striped">
+    <tr ng-class="{danger: log.type=='delete_type', success: log.type=='isert_type',warning: log.type=='decrement_type',info: log.type=='increment_type', active: log.type=='move_type'}" ng-repeat="log in $data | filter: criterioBusca">
+        <td title="'Tipo'">
+            <b> {{log.type}} </b></td>
+        <td title="'Descrição'" >
+            {{log.description}}</td>
+        <td title="'Data'">
+            <small> {{log.date | date:'EEE, dd/MM/yyyy HH:mm'}}</small></td>
+    </tr>
+</table>
+
+<div  ng-show="logs.length <= 0"  class="well">
+    <h3>
+        Nada encontrado.
+    </h3>
+    A lista de registros foi apagada. Nenhum registro foi encontrado.
+</div>
+
+
