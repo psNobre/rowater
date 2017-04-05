@@ -7,10 +7,10 @@
     </div>
 
     <!-- Bloqueado -->
-    <button ng-show="false" ng-click="clearLog()" class="btn btn-primary">Clear Log</button>
+    <button ng-show="true" ng-click="clearLog()" class="btn btn-primary">Clear Log</button>
 </div>
 
-<table ng-show="logs.length > 0" ng-table="tableParams"  class="table table-bordered table-striped">
+<table ng-show="logs.length > 0" ng-table="tableParams"  class="table table-bordered">
     <tr ng-class="{danger: log.type=='delete_type', success: log.type=='isert_type',warning: log.type=='decrement_type',info: log.type=='increment_type', active: log.type=='move_type'}" ng-repeat="log in $data | filter: criterioBusca">
         <td title="'Tipo'">
             <b> {{log.type}} </b></td>

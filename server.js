@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 //GETs
 app.get('/users', function (req, res) {
 	console.log('GET Request recebido.');
-    db.users.find(function (err, docs) {
+    db.users.find().sort({position: 1}, function (err, docs) {
         console.log(docs);
         res.json(docs);
         console.log("GET Response respondido.");

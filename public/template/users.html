@@ -1,15 +1,22 @@
 <h2>H2O+CO+CO</h2>
 
+<button ng-click="editModeActive()"  class="btn btn-primary">
+    Editar lista
+    <i ng-show="editMode" class="fa fa-unlock-alt"></i>
+    <i ng-show="!editMode" class="fa fa-lock"></i>
+</button>
+
 <ul class="sortable-list connectList agile-list" id="rowater">
     <li ng-class="contato.count > 0 ? 'danger-element' : (contato.count < 0 ? 'success-element' : '')" ng-repeat="contato in contatos | orderBy: 'position'" id="{{contato.name}}">
         {{contato.name}} {{contato.count}} <i class="fa fa-flag"></i>
 
-        <a title="Deletar Participante" ng-click="deleteContato(contato)" href="#" class="pull-left btn btn-xs btn-default"><i class="fa fa-trash"></i></a>
+        <button ng-disabled="editMode" title="Deletar Participante" ng-click="deleteContato(contato)" href="#" class="pull-left btn btn-xs btn-default"><i class="fa fa-trash"></i></button>
 
-        <a title="Incrementar Rodada" ng-click="incrementCount(contato)" href="#" class="pull-right btn btn-xs btn-default"><i class="fa fa-plus"></i></a>
-        
-        <a title="Decrementar Rodada" ng-click="decrementCount(contato)" href="#" class="pull-right btn btn-xs btn-default"><i class="fa fa-minus"></i></a>
+        <button ng-disabled="contato.position != 0 || editMode" title="Enviar para final da fila" ng-click="endRow(contato)"  class="pull-left btn btn-xs btn-default"><i class="fa fa-level-down"></i></button>
 
+        <button ng-disabled="editMode" title="Incrementar Rodada" ng-click="incrementCount(contato)" class="pull-right btn btn-xs btn-default"><i class="fa fa-plus"></i></button>
+
+        <button ng-disabled="editMode" title="Decrementar Rodada" ng-click="decrementCount(contato)" class="pull-right btn btn-xs btn-default"><i class="fa fa-minus"></i></button>
 
     </li>                 
 </ul>
@@ -19,6 +26,7 @@
 </form>
 
 <!-- Mensagens de alerta -->
+
 <div class="alert alert-danger" ng-show="contatoForm.name.$error.required && contatoForm.name.$dirty">Preencha o campo Nome!</div>		
 <div class="alert alert-danger" ng-show="contatoForm.name.$error.maxlength">Campo Nome deve ter no maximo 20 caracteres!</div>
 <div class="alert alert-danger" ng-show="contatoForm.name.$error.minlength">Campo Nome deve ter no minimo 4 caracteres!</div>

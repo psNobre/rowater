@@ -2,7 +2,7 @@
 
 var meuApp = angular.module('meuApp',['ngTable','ui.router','ngMask']);
 
-meuApp.controller('appCtrl',function ($scope, $window, contatoService, logService, NgTableParams) {
+meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, logService, NgTableParams) {
 
     $scope.contatos = [];
 
@@ -35,12 +35,11 @@ meuApp.controller('appCtrl',function ($scope, $window, contatoService, logServic
         }
 
         logService.setLog(log).success(function (response){
-//            console.log(response);
         });
 
     }
 
-    var reOrderRow = function (rowater) {
+    var updateEdit = function (rowater) {
         $scope.contatos.forEach(function (element, index){      
             rowater.forEach(function (element2, index2){
                 if(element.name == element2){
@@ -53,15 +52,33 @@ meuApp.controller('appCtrl',function ($scope, $window, contatoService, logServic
         })
     }
 
-    $("#rowater").sortable({
-        connectWith: ".connectList",
-        update: function( event, ui ) {
-            var rowater = $( "#rowater" ).sortable( "toArray" );
-            createLog("move_type","Lista foi reordenada.", new Date());
-            reOrderRow(rowater);
-        }
+    var reOrderRow = function () {
+        $scope.contatos.forEach(function (element, index){
+            element.position = index;
+            contatoService.updContato(element._id, element).success(function  (response) {
+            });
+        });
+    }
 
-    }).disableSelection();
+    function moveElementInArray (array, value, positionChange) {
+        var oldIndex = array.indexOf(value);
+        if (oldIndex > -1){
+            var newIndex = (oldIndex + positionChange);
+
+            if (newIndex < 0){
+                newIndex = 0
+            }else if (newIndex >= array.length){
+                newIndex = array.length
+            }
+
+            var arrayClone = array.slice();
+            arrayClone.splice(oldIndex,1);
+            arrayClone.splice(newIndex,0,value);
+
+            return arrayClone
+        }
+        return array
+    }
 
     $scope.adicionaContato = function (contato) {
         contato.data = new Date();
@@ -72,9 +89,33 @@ meuApp.controller('appCtrl',function ($scope, $window, contatoService, logServic
             $scope.contatoForm.$setPristine();
 
             createLog("isert_type",contato.name + " foi inserido.", new Date());
-
             carregarContatos();
+
         });
+
+    }
+
+    $scope.editModeActive = function () {
+        if($scope.editMode){
+            $scope.editMode = false;
+            //            $window.location.reload();
+            $state.go($state.current.name, {}, {reload: true});
+        }else{
+            $scope.editMode = true;
+            $("#rowater").sortable({
+                disabled: false,
+                connectWith: ".connectList",
+                update: function( event, ui ) {
+                    var rowater = $( "#rowater" ).sortable( "toArray" );
+                    createLog("reorder_type","Lista foi reorganizada.", new Date());
+                    updateEdit(rowater);
+
+                }
+
+            }).disableSelection();
+
+        }
+
     }
 
     $scope.deleteContato = function (contato) {
@@ -84,7 +125,7 @@ meuApp.controller('appCtrl',function ($scope, $window, contatoService, logServic
 
         carregarContatos();         
     }
-    
+
     $scope.incrementCount = function (contato) {
         contato.count++;
         contatoService.updContato(contato._id, contato).success(function  (response) {
@@ -108,14 +149,30 @@ meuApp.controller('appCtrl',function ($scope, $window, contatoService, logServic
 
         });
     }
-    
+
+    $scope.endRow = function (contato) {
+
+        if(contato.count < 0){
+            createLog("move_type",contato.name+" foi enviado para o final da fila e decrementado para "+contato.count+".", new Date());
+            contato.count++;
+            $scope.contatos = moveElementInArray($scope.contatos, contato, $scope.contatos.length);
+        }else if (contato.count > 0){
+            createLog("move_type",contato.name+" foi enviado para o final da fila, mas por seu saldo ser "+contato.count+", permanceu no lugar.", new Date());
+            contato.count--;
+        }else{
+            $scope.contatos = moveElementInArray($scope.contatos, contato, $scope.contatos.length);
+            createLog("move_type",contato.name+" foi enviado para o final da fila.", new Date());
+        }
+
+        reOrderRow();
+        carregarContatos();
+    }
+
     $scope.clearLog = function () {
         logService.clearLog().success(function (response){
-//            console.log(response);
-            
             $window.location.reload();
         });
-              
+
     }
 
     carregarContatos();
