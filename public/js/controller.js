@@ -5,6 +5,20 @@ var meuApp = angular.module('meuApp',['ngTable','ui.router','ngMask']);
 meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, logService, NgTableParams) {
 
     $scope.contatos = [];
+    $scope.editorEnabled = false;
+
+    $scope.enableEditor = function (contato) {
+        contatoService.getOneContato(contato._id).success(function  (response) {
+            $scope.editorEnabled = true;
+            $scope.editableTitle = response.name;
+            $scope.editUserName = contato.name;
+
+        });
+    }
+
+    $scope.disableEditor = function() {
+        $scope.editorEnabled = false;
+    };
 
     var carregarContatos = function () {
         contatoService.getContatos().success(function  (response) {
@@ -60,7 +74,7 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
             });
         });
     }
-    
+
     function moveElementInArray (array, value, positionChange) {
         var oldIndex = array.indexOf(value);
         if (oldIndex > -1){
@@ -126,22 +140,23 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
 
         carregarContatos();         
     }
-    
+
     $scope.editarContato = function (contato) {
-		contatoService.getOneContato(contato._id).success(function  (response) {
-			$scope.contato = response;
-		});
-	}
+        contatoService.getOneContato(contato._id).success(function  (response) {
+            $scope.contato = response;
+        });
+    }
 
     $scope.atualizarContato = function (contato) {
-		contatoService.updContato(contato._id, contato).success(function  (response) {
-			delete $scope.contato;
-			$scope.contatoForm.$setPristine();
-			carregarContatos();
-			
-		});
-	}
-    
+        contatoService.updContato(contato._id, contato).success(function  (response) {
+            delete $scope.contato;
+            $scope.contatoForm.$setPristine();
+            carregarContatos();
+
+        });
+        $scope.editorEnabled = false;
+    }
+
     $scope.incrementCount = function (contato) {
         contato.count++;
         contatoService.updContato(contato._id, contato).success(function  (response) {
@@ -179,6 +194,16 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
             $scope.contatos = moveElementInArray($scope.contatos, contato, $scope.contatos.length);
             createLog("move_type",contato.name+" foi enviado para o final da fila.", new Date());
         }
+
+        reOrderRow();
+
+    }
+
+    $scope.passTurn = function (contato) { 
+        contato.count++;
+
+        $scope.contatos = moveElementInArray($scope.contatos, contato, $scope.contatos.length);
+        createLog("move_type",contato.name+" passou a vez.", new Date());
 
         reOrderRow();
 

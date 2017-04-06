@@ -1,25 +1,40 @@
 <h2>H2O+CO+CO</h2>
 
-<button title="Modo de edição da lista" ng-click="editModeActive()"  class="btn btn-warning">
+<button title="Modo de edição da lista" ng-click="editModeActive()"  class="btn btn-default">
     <i ng-show="editMode" class="fa fa-unlock-alt"></i>
     <i ng-show="!editMode" class="fa fa-lock"></i>
 </button>
 
 <ul class="sortable-list connectList agile-list" id="rowater">
     <li ng-class="contato.count > 0 ? 'danger-element' : (contato.count < 0 ? 'success-element' : '')" ng-repeat="contato in contatos | orderBy: 'position'" id="{{contato.name}}">
-        {{contato.name}} {{contato.count}} <i class="fa fa-flag"></i>
-        
-        <!--   Edit Mode    -->
-        <button ng-show="editMode" title="Deletar Participante" ng-click="deleteContato(contato)" class="pull-left btn btn-xs btn-default"><i class="fa fa-trash"></i></button>
-        
-        <button ng-show="editMode" title="Editar Participante" ng-click="editarContato(contato)" class="pull-right btn btn-xs btn-default"><i class="fa fa-pencil"></i></button>
-        
-        <!--   Game Mode    -->
-        <button ng-show="!editMode" ng-disabled="contato.position != 0 || editMode" title="Enviar para final da fila" ng-click="endRow(contato)"  class="pull-left btn btn-xs btn-default"><i class="fa fa-level-down"></i></button>
 
-        <button ng-show="!editMode" ng-disabled="editMode" title="Incrementar Rodada" ng-click="incrementCount(contato)" class="pull-right btn btn-xs btn-default"><i class="fa fa-plus"></i></button>
+        <div ng-hide="editorEnabled">
+            {{contato.name}} {{contato.count}} <i class="fa fa-flag"></i>
 
-        <button ng-show="!editMode" ng-disabled="editMode" title="Decrementar Rodada" ng-click="decrementCount(contato)" class="pull-right btn btn-xs btn-default"><i class="fa fa-minus"></i></button>
+            <!--   Edit Mode    -->
+            <button ng-show="editMode" title="Deletar Participante" ng-click="deleteContato(contato)" class="pull-left btn btn-xs btn-default"><i class="fa fa-trash"></i></button>
+
+            <button ng-show="editMode" title="Editar Participante" ng-click="enableEditor(contato)" class="pull-right btn btn-xs btn-default"><i class="fa fa-pencil"></i></button>
+
+            <!--   Game Mode    -->
+            <button ng-disabled="contato.count < 0" ng-show="!editMode && contato.position == 0" title="Passar a vez" ng-click="passTurn(contato)"  class="pull-right btn btn-xs btn-default"><i class="fa fa-repeat"></i></button>
+            
+            <button ng-show="!editMode" ng-disabled="contato.position != 0 || editMode" title="Enviar para final da fila" ng-click="endRow(contato)"  class="pull-left btn btn-xs btn-default"><i class="fa fa-level-down"></i></button>
+
+            <button ng-show="!editMode && contato.position != 0" ng-disabled="editMode" title="Incrementar rodada" ng-click="incrementCount(contato)" class="pull-right btn btn-xs btn-default"><i class="fa fa-plus"></i></button>
+
+            <button ng-show="!editMode && contato.position != 0" ng-disabled="editMode" title="Decrementar rodada" ng-click="decrementCount(contato)" class="pull-right btn btn-xs btn-default"><i class="fa fa-minus"></i></button>
+
+        </div>
+
+        <div ng-hide="!editorEnabled">       
+            <input ng-model="contato.name">
+
+            <button ng-show="editMode" title="Cancelar" ng-click="disableEditor()"  class="pull-right btn btn-xs btn-default"><i class="fa fa-times"></i></button>
+
+            <button ng-show="editMode" title="Atualizar Participante" ng-click="atualizarContato(contato)" class="pull-left btn btn-xs btn-default"><i class="fa fa-refresh"></i></button>
+
+        </div>
 
     </li>                 
 </ul>
@@ -29,11 +44,8 @@
 </form>
 
 <!-- Mensagens de alerta -->
-
 <div class="alert alert-danger" ng-show="contatoForm.name.$error.required && contatoForm.name.$dirty">Preencha o campo Nome!</div>		
 <div class="alert alert-danger" ng-show="contatoForm.name.$error.maxlength">Campo Nome deve ter no maximo 20 caracteres!</div>
 <div class="alert alert-danger" ng-show="contatoForm.name.$error.minlength">Campo Nome deve ter no minimo 4 caracteres!</div>
 
 <button id="btn-add" class="btn btn-primary btn-block" ng-click="adicionaContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar</button>
-
-<button id="btn-upd" class="btn btn-info btn-block" ng-click="atualizarContato(contato)"  ng-disabled="contatoForm.$invalid" >Atualizar</button>
