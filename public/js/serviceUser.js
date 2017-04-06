@@ -8,9 +8,9 @@ meuApp.service('contatoService', function ($http, config) {
 		return $http.get(config.baseUrl + "/users");
 	}
 
-//	this.getOneContato = function (id) {
-//		return $http.get(config.baseUrl + "/contatos/"+id);
-//	}
+	this.getOneContato = function (id) {
+		return $http.get(config.baseUrl + "/users/"+id);
+	}
 
 	this.setContato = function (contato) {
 		return $http.post(config.baseUrl + "/users", contato);

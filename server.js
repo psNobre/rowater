@@ -20,16 +20,16 @@ app.get('/users', function (req, res) {
     });
 });
 
-//app.get("/contatos/:id", function (req, res) {
-//    console.log('GET Request recebido.');
-//    var id = req.params.id;
-//    db.contatos.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
-//        console.log(doc);
-//        res.json(doc);
-//        console.log("GET Response respondido.");
-//    });
-//});
-//
+app.get("/users/:id", function (req, res) {
+    console.log('GET Request recebido.');
+    var id = req.params.id;
+    db.users.findOne({_id: mongojs.ObjectId(id)}, function (err, doc) {
+        console.log(doc);
+        res.json(doc);
+        console.log("GET Response respondido.");
+    });
+});
+
 //POSTs
 app.post('/users', function (req, res) {
     console.log('POST Request recebido.');
@@ -55,7 +55,7 @@ app.put('/users/:id', function (req, res) {
      var id = req.params.id;
      console.log("PUT Request recebido.");
      db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
-     update: {$set: {count: req.body.count, position: req.body.position, data: new Date()}}, new: true}, function (err, doc) {
+     update: {$set: {name: req.body.name, count: req.body.count, position: req.body.position, data: new Date()}}, new: true}, function (err, doc) {
          res.json(doc);
          console.log("PUT Response enviado.");
         });

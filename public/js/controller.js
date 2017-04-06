@@ -9,6 +9,7 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
     var carregarContatos = function () {
         contatoService.getContatos().success(function  (response) {
             $scope.contatos = response;
+            reOrderRow();
         });
 
     }
@@ -59,7 +60,7 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
             });
         });
     }
-
+    
     function moveElementInArray (array, value, positionChange) {
         var oldIndex = array.indexOf(value);
         if (oldIndex > -1){
@@ -125,7 +126,22 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
 
         carregarContatos();         
     }
+    
+    $scope.editarContato = function (contato) {
+		contatoService.getOneContato(contato._id).success(function  (response) {
+			$scope.contato = response;
+		});
+	}
 
+    $scope.atualizarContato = function (contato) {
+		contatoService.updContato(contato._id, contato).success(function  (response) {
+			delete $scope.contato;
+			$scope.contatoForm.$setPristine();
+			carregarContatos();
+			
+		});
+	}
+    
     $scope.incrementCount = function (contato) {
         contato.count++;
         contatoService.updContato(contato._id, contato).success(function  (response) {
@@ -165,7 +181,7 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
         }
 
         reOrderRow();
-        carregarContatos();
+
     }
 
     $scope.clearLog = function () {
