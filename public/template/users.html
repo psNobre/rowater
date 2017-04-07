@@ -1,11 +1,11 @@
 <h2>H2O+CO+CO</h2>
 
-<button title="Modo de edição da lista" ng-click="editModeActive()"  class="btn btn-default">
+<button ng-show="contatos.length > 0" title="Modo de edição da lista" ng-click="editModeActive()"  class="btn btn-default">
     <i ng-show="editMode" class="fa fa-unlock-alt"></i>
     <i ng-show="!editMode" class="fa fa-lock"></i>
 </button>
 
-<ul class="sortable-list connectList agile-list" id="rowater">
+<ul ng-show="contatos.length > 0"  class="sortable-list connectList agile-list" id="rowater">
     <li ng-class="contato.count > 0 ? 'danger-element' : (contato.count < 0 ? 'success-element' : '')" ng-repeat="contato in contatos | orderBy: 'position'" id="{{contato.name}}">
 
         <div ng-hide="editorEnabled">
@@ -38,6 +38,13 @@
 
     </li>                 
 </ul>
+
+<div  ng-show="contatos.length <= 0"  class="well">
+    <h3>
+        Nada encontrado.
+    </h3>
+    A lista de participantes está vazia. Adicione um participante ou mais.
+</div>
 
 <form name="contatoForm">
     <input autocomplete="off" class="form-control" ng-model="contato.name" name="name" placeholder="Nome" ng-maxlength="20" ng-minlength="4" ng-required="true">
