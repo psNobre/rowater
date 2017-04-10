@@ -4,7 +4,6 @@ var meuApp = angular.module('meuApp',['ngTable','ui.router','ngMask']);
 
 meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, logService, NgTableParams) {
 
-    $scope.contatos = [];
     $scope.editorEnabled = false;
 
     $scope.enableEditor = function (contato) {
@@ -184,12 +183,12 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
     $scope.endRow = function (contato) {
 
         if(contato.count < 0){
-            createLog("move_type",contato.name+" foi enviado para o final da fila e decrementado para "+contato.count+".", new Date());
             contato.count++;
             $scope.contatos = moveElementInArray($scope.contatos, contato, $scope.contatos.length);
+            createLog("move_type",contato.name+" foi enviado para o final da fila e decrementado para "+contato.count+".", new Date());
         }else if (contato.count > 0){
-            createLog("move_type",contato.name+" foi enviado para o final da fila, mas por seu saldo ser "+contato.count+", permanceu no lugar.", new Date());
             contato.count--;
+            createLog("move_type",contato.name+" foi enviado para o final da fila, mas por seu saldo ser "+contato.count+", permanceu no lugar.", new Date());
         }else{
             $scope.contatos = moveElementInArray($scope.contatos, contato, $scope.contatos.length);
             createLog("move_type",contato.name+" foi enviado para o final da fila.", new Date());
