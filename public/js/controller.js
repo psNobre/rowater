@@ -10,7 +10,7 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
         contatoService.getOneContato(contato._id).success(function  (response) {
             $scope.editorEnabled = true;
             $scope.editableTitle = response.name;
-            $scope.editUserName = contato.name;
+            $scope.editUserId = contato._id;
 
         });
     }

@@ -28,11 +28,13 @@
         </div>
 
         <div ng-hide="!editorEnabled">       
-            <input ng-model="contato.name">
 
-            <button ng-show="editMode" title="Cancelar" ng-click="disableEditor()"  class="pull-right btn btn-xs btn-default"><i class="fa fa-times"></i></button>
+            <x ng-show="editUserId != contato._id">{{contato.name}}</x>
+            <input ng-show="editUserId == contato._id" ng-model="contato.name">
 
-            <button ng-show="editMode" title="Atualizar Participante" ng-click="atualizarContato(contato)" class="pull-left btn btn-xs btn-default"><i class="fa fa-refresh"></i></button>
+            <button ng-disabled="editUserId != contato._id" ng-show="editMode" title="Cancelar" ng-click="disableEditor()"  class="pull-right btn btn-xs btn-default"><i class="fa fa-times"></i></button>
+
+            <button ng-disabled="editUserId != contato._id" ng-show="editMode" title="Atualizar Participante" ng-click="atualizarContato(contato)" class="pull-left btn btn-xs btn-default"><i class="fa fa-refresh"></i></button>
 
         </div>
 
