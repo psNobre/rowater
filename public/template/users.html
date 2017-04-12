@@ -18,7 +18,7 @@
 
             <!--   Game Mode    -->
             <button ng-disabled="contato.count < 0" ng-show="!editMode && contato.position == 0" title="Passar a vez" ng-click="passTurn(contato)"  class="pull-right btn btn-xs btn-default"><i class="fa fa-repeat"></i></button>
-            
+
             <button ng-show="!editMode" ng-disabled="contato.position != 0 || editMode" title="Enviar para final da fila" ng-click="endRow(contato)"  class="pull-left btn btn-xs btn-default"><i class="fa fa-level-down"></i></button>
 
             <button ng-show="!editMode && contato.position != 0" ng-disabled="editMode" title="Incrementar rodada" ng-click="incrementCount(contato)" class="pull-right btn btn-xs btn-default"><i class="fa fa-plus"></i></button>
@@ -32,7 +32,7 @@
             <x ng-show="editUserId != contato._id">{{contato.name}}</x>
             <input ng-show="editUserId == contato._id" ng-model="contato.name">
 
-            <button ng-disabled="editUserId != contato._id" ng-show="editMode" title="Cancelar" ng-click="disableEditor()"  class="pull-right btn btn-xs btn-default"><i class="fa fa-times"></i></button>
+            <button ng-disabled="editUserId != contato._id" ng-show="editMode" title="Cancelar" ng-click="disableEditor(contato)"  class="pull-right btn btn-xs btn-default"><i class="fa fa-times"></i></button>
 
             <button ng-disabled="editUserId != contato._id" ng-show="editMode" title="Atualizar Participante" ng-click="atualizarContato(contato)" class="pull-left btn btn-xs btn-default"><i class="fa fa-refresh"></i></button>
 

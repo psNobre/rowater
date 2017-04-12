@@ -45,16 +45,16 @@ app.delete('/users/:id', function (req, res) {
 
 //PUTs
 app.put('/users/:id', function (req, res) {
-     var id = req.params.id;
-     db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
-     update: {$set: {name: req.body.name, count: req.body.count, position: req.body.position, data: new Date()}}, new: true}, function (err, doc) {
-         res.json(doc);
-         console.log("["+new Date().toLocaleString().replace(/T/, ' ').replace(/\..+/, '')+"]"+" PUT Response enviado.");
-        });
+    var id = req.params.id;
+    db.users.findAndModify({query: {_id: mongojs.ObjectId(id)},
+                            update: {$set: {name: req.body.name, count: req.body.count, position: req.body.position, data: new Date()}}, new: true}, function (err, doc) {
+        res.json(doc);
+        console.log("["+new Date().toLocaleString().replace(/T/, ' ').replace(/\..+/, '')+"]"+" PUT Response enviado.");
+    });
 
 });
 
-//---------------------------------------------------------------------------
+//------------------------- Logs ---------------------------------------------
 
 app.get('/logs', function (req, res) {
     db.logs.find().sort({date: -1}, function (err, docs) {

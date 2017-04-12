@@ -15,8 +15,9 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
         });
     }
 
-    $scope.disableEditor = function() {
+    $scope.disableEditor = function(contato) {
         $scope.editorEnabled = false;
+        $state.go($state.current.name, {}, {reload: true});
     };
 
     var carregarContatos = function () {
@@ -153,7 +154,7 @@ meuApp.controller('appCtrl',function ($scope, $state, $window, contatoService, l
             carregarContatos();
 
         });
-        $scope.editorEnabled = false;
+        $state.go($state.current.name, {}, {reload: true});
     }
 
     $scope.incrementCount = function (contato) {
