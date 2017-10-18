@@ -1,60 +1,62 @@
 <html ng-app="meuApp">
-    <head>
-        <meta charset="utf-8">
-        <title>H2O+CO+CO</title>
 
-        <!-- Local -->
-        <link href="css/app.css" rel="stylesheet">
-        <link href="css/animate.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
-        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+<head>
+    <meta charset="utf-8">
+    <title>H2O+CO+CO</title>
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Local -->
+    <link href="css/app.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
-        <!--  Angular  -->
-        <script type="text/javascript" src="js/angular/angular.min.js"></script>   
-        <script type="text/javascript" src="bower_components/ngMask/dist/ngMask.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular-locale-pt-br/angular-locale_pt-br.js"></script>
-        <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-        <!--  ngTable  -->
-        <link rel="stylesheet"; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
-        <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+    <!--  Angular  -->
+    <script type="text/javascript" src="js/angular/angular.min.js"></script>
+    <script type="text/javascript" src="bower_components/ngMask/dist/ngMask.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-locale-pt-br/angular-locale_pt-br.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-        <!--  Jquery  -->
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="bower_components/jquery-ui/jquery-ui.min.js"></script> 
+    <!--  ngTable  -->
+    <link rel="stylesheet" ; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
 
-        <!--  MVC  -->
-        <script type="text/javascript" src="js/controller.js"></script>
-        <script type="text/javascript" src="js/serviceUser.js"></script>
-        <script type="text/javascript" src="js/serviceLog.js"></script>
-        <script type="text/javascript" src="js/values.js"></script>
+    <!--  Jquery  -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 
-    </head>
-    <body ng-controller="appCtrl">
+    <!--  MVC  -->
+    <script type="text/javascript" src="js/controller.js"></script>
+    <script type="text/javascript" src="js/serviceUser.js"></script>
+    <script type="text/javascript" src="js/serviceLog.js"></script>
+    <script type="text/javascript" src="js/values.js"></script>
 
-        <div class="jumbotron">
+</head>
 
-            <nav class="nav-menu">	
-                <div class="menu" >
+<body ng-controller="appCtrl">
 
-                    <a title="Home" class="item" ui-sref="listUsers">
+    <div class="jumbotron">
+
+        <nav class="nav-menu">
+            <div class="menu">
+
+                <a title="Home" class="item" ui-sref="listUsers">
                         <i class="image fa fa-list-ul"></i>
                     </a>
 
-                    <a title="Lista de Logs" class="item" ui-sref="listLogs">
+                <a title="Lista de Logs" class="item" ui-sref="listLogs">
                         <i class="image fa fa-book"></i>
                     </a>
 
-                </div>
-            </nav>
+            </div>
+        </nav>
 
-            <div class="animated fadeIn" ui-view></div>
+        <div class="animated fadeIn" ui-view></div>
 
-        </div> 
+    </div>
 
-    </body>
+</body>
 
 </html>
