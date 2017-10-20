@@ -3,8 +3,8 @@
 var meuApp = angular.module('meuApp');
 
 meuApp.value('config', {
-    //	baseUrl: "http://localhost:3000"
-    baseUrl: "http://136.166.96.168:3000"
+    baseUrl: "http://localhost:3000"
+    //    baseUrl: "http://136.166.96.168:3000"
 });
 
 meuApp.config(function ($stateProvider, $urlRouterProvider) {
