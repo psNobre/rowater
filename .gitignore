@@ -1,2 +1,10 @@
+#npm and bower libs
 node_modules/
 public/bower_components/
+
+#IDE files
+.idea/
+
+#Local Logs
+*.log
+*.logs

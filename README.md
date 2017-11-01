@@ -10,4 +10,4 @@ Manage rounds.
     `bower install`   
 4. Running application: 
     `cd ..`
-    `node server.js`
+    `npm start`
